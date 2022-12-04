@@ -35,7 +35,6 @@ router.post("/new", async (req, res) => {
 		}).catch(err => {
             res.json({ message: err });
         });
-	console.log(req.body);
 });
 
 router.get("/", (req, res) => {
