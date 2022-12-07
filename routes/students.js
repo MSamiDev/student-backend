@@ -5,11 +5,12 @@ const Stud = require("../models/student");
 //get all students
 router.get("/all", async (req, res) => {
 	try {
-		const students = await Student.find();
+		const students = await Stud.find();
 		res.json(students);
 	} catch (err) {
 		res.json({ message: err });
 	}
+	res.end();
 });
 
 //enter a new student
