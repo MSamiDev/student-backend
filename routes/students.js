@@ -13,6 +13,30 @@ router.get("/all", async (req, res) => {
 	res.end();
 });
 
+// get a specific student
+router.get("/:studentId", async (req, res) => {
+	try {
+		const student = await Stud.findById(req.params.studentId.toString());
+		res.json(student);
+	} catch (err) {
+		res.json({ message: err });
+	}
+	res.end();
+});
+
+
+//delete a student
+router.delete("/:studentId", async (req, res) => {
+	try {
+		const removedStudent = await Stud.deleteOne({ _id : req.params.studentId.toString() });
+		res.json(removedStudent);
+	} catch (err) {
+		res.json({ message: err });
+	}
+	res.end();
+});
+	
+
 //enter a new student
 router.post("/new", async (req, res) => {
 	const student = new Stud({
