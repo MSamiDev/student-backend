@@ -24,6 +24,33 @@ router.get("/:studentId", async (req, res) => {
 	res.end();
 });
 
+//update a student
+router.patch("/update/:studentId", async (req, res) => {
+	try {
+		const updatedStudent = await Stud.updateOne(
+			{ _id: req.params.studentId.toString() },
+			{ $set: { firstName: req.body.firstName,
+				lastName: req.body.lastName,
+				email: req.body.email,
+				phone: req.body.phone,
+				age: req.body.age,
+				college: req.body.college,
+				department: req.body.department,
+				country: req.body.country,
+				address: req.body.address,
+				city: req.body.city,
+				state: req.body.state,
+				zipCode: req.body.zipCode,
+			} }
+		);
+		res.json(updatedStudent);
+	} catch (err) {
+		res.json({ message: err });
+	}
+	res.end();
+});
+
+
 
 //delete a student
 router.delete("/:studentId", async (req, res) => {
