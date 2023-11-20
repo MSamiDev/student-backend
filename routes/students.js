@@ -29,19 +29,27 @@ router.patch("/update/:studentId", async (req, res) => {
 	try {
 		const updatedStudent = await Stud.updateOne(
 			{ _id: req.params.studentId.toString() },
-			{ $set: { firstName: req.body.firstName,
-				lastName: req.body.lastName,
-				email: req.body.email,
-				phone: req.body.phone,
-				age: req.body.age,
-				college: req.body.college,
-				department: req.body.department,
-				country: req.body.country,
-				address: req.body.address,
-				city: req.body.city,
-				state: req.body.state,
-				zipCode: req.body.zipCode,
-			} }
+			{
+				$set: {
+					firstName: req.body.firstName,
+					middleName: req.body.middleName,
+					lastName: req.body.lastName,
+					urnNo: req.body.urnNo,
+					rollNo: req.body.rollNo,
+					currentYear: req.body.currentYear,
+					branch: req.body.branch,
+					email: req.body.email,
+					phone: req.body.phone,
+					dob: req.body.dob,
+					college: req.body.college,
+					department: req.body.department,
+					country: req.body.country,
+					address: req.body.address,
+					city: req.body.city,
+					state: req.body.state,
+					zipCode: req.body.zipCode,
+				},
+			}
 		);
 		res.json(updatedStudent);
 	} catch (err) {
@@ -50,28 +58,32 @@ router.patch("/update/:studentId", async (req, res) => {
 	res.end();
 });
 
-
-
 //delete a student
 router.delete("/:studentId", async (req, res) => {
 	try {
-		const removedStudent = await Stud.deleteOne({ _id : req.params.studentId.toString() });
+		const removedStudent = await Stud.deleteOne({
+			_id: req.params.studentId.toString(),
+		});
 		res.json(removedStudent);
 	} catch (err) {
 		res.json({ message: err });
 	}
 	res.end();
 });
-	
 
 //enter a new student
 router.post("/new", async (req, res) => {
 	const student = new Stud({
 		firstName: req.body.firstName,
+		middleName: req.body.middleName,
 		lastName: req.body.lastName,
+		urnNo: req.body.urnNo,
+		rollNo: req.body.rollNo,
+		currentYear: req.body.currentYear,
+		branch: req.body.branch,
 		email: req.body.email,
 		phone: req.body.phone,
-		age: req.body.age,
+		dob: req.body.dob,
 		college: req.body.college,
 		department: req.body.department,
 		country: req.body.country,
@@ -81,12 +93,14 @@ router.post("/new", async (req, res) => {
 		zipCode: req.body.zipCode,
 	});
 
-	student.save()
-		.then(data => {
+	student
+		.save()
+		.then((data) => {
 			res.json(data);
-		}).catch(err => {
-            res.json({ message: err });
-        });
+		})
+		.catch((err) => {
+			res.json({ message: err });
+		});
 });
 
 router.get("/", (req, res) => {
